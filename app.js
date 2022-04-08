@@ -1,10 +1,12 @@
 //jshint esversion:6
+
+require('dotenv').config()
 const express=require('express')
 const bodyParser=require('body-parser')
 const mongoose=require('mongoose')
 var encrypt = require('mongoose-encryption')
 const app=express();
-const doetnv=require('dotenv').config();
+
 
 app.use(express.static("public"))
 app.set('view engine','ejs')
@@ -22,7 +24,8 @@ var userSchema = new mongoose.Schema({
 
 // var encKey = process.env.SOME_32BYTE_BASE64_STRING
 // var sigKey = process.env.SOME_64BYTE_BASE64_STRING
-const secret="ahaieqhrieqhdahhgeaeao"
+
+const secret=process.env.SECRET
 
 userSchema.plugin(encrypt, {secret:secret, encryptedFields: ['password']})
 
